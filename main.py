@@ -1,16 +1,13 @@
-# This is a sample Python script.
+from KMLPipePy import KMLPipeline
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# create pipeline
+pipe = KMLPipeline("Python Test", 1, "79705c77-f57b-449d-b856-03138e8859a7")
 
+# initialize
+pipe.initialize()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+# execute
+#outputs = pipe.execute([1, 2])
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# print output
+#print(outputs)

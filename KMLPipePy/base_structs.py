@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
+from json import JSONEncoder
 
 class DataType(Enum):
     CVImage = "Image"
@@ -22,7 +23,7 @@ class CVVariable:
     id: str
     name: str
     dataType: DataType
-    value: any | None
+    value: any
 
 @dataclass
 class CVParameter:
@@ -48,7 +49,7 @@ class CVNode:
     platforms: List[Platform]
 
 @dataclass
-class Project:
+class Project(JSONEncoder):
     id: str
     projectName: str
     owner: str

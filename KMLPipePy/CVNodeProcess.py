@@ -1,4 +1,4 @@
-from base_structs import CVNode
+from KMLPipePy.base_structs import CVNode
 from typing import Dict
 
 class CVNodeProcess:

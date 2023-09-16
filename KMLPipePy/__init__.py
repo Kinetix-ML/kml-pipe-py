@@ -1,18 +1,18 @@
-from base_structs import Project, Version, CVPipeline, CVNode
-from CVNodeProcess import CVNodeProcess
-from operations import NodeCatalog
+from KMLPipePy.base_structs import Project, Version, CVPipeline, CVNode
+from KMLPipePy.CVNodeProcess import CVNodeProcess
+from KMLPipePy.operations import NodeCatalog
 from typing import List, Dict
-from api import get_project_version
-import asyncio
+from KMLPipePy.api import get_project_version
+
 
 class KMLPipeline:
     projectName: str
     projectVersion: int
     apiKey: str
-    project: Project | None
-    version: Version | None
-    pipeline: CVPipeline | None
-    nodes: List[CVNode] | None
+    project: Project | None = None
+    version: Version | None = None
+    pipeline: CVPipeline | None = None
+    nodes: List[CVNode] | None = []
     execNodes: Dict[str, CVNodeProcess] = []
     vars: Dict[str, any] = []
 
@@ -25,7 +25,7 @@ class KMLPipeline:
         self.project = project
         self.version = version
 
-    async def initialize(self):
+    def initialize(self):
         # get project and version details from firebase
         if not self.project or not self.version:
             project, version = get_project_version(
@@ -42,7 +42,7 @@ class KMLPipeline:
             new_exec_node.initialize()
             self.exec_nodes[node.id] = new_exec_node
 
-    async def execute(self, input_values):
+    def execute(self, input_values):
         if len(input_values) != len(self.pipeline.inputs):
             expected = len(self.pipeline.inputs)
             given = len(input_values)
