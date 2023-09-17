@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import List, Union
 from json import JSONEncoder
 
 class DataType(Enum):
@@ -35,7 +35,7 @@ class CVParameter:
 @dataclass
 class CVVariableConnection:
     id: str
-    connection: CVVariable | None
+    connection: Union[CVVariable, None]
     dataType: DataType
 
 @dataclass

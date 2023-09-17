@@ -1,7 +1,7 @@
 from KMLPipePy.base_structs import Project, Version, CVPipeline, CVNode
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.operations import NodeCatalog
-from typing import List, Dict
+from typing import List, Dict, Union
 from KMLPipePy.api import get_project_version
 
 
@@ -9,10 +9,10 @@ class KMLPipeline:
     projectName: str
     projectVersion: int
     apiKey: str
-    project: Project | None = None
-    version: Version | None = None
-    pipeline: CVPipeline | None = None
-    nodes: List[CVNode] | None = []
+    project: Project = None
+    version: Version = None
+    pipeline: CVPipeline = None
+    nodes: List[CVNode] = []
     execNodes: Dict[str, CVNodeProcess] = {}
     vars: Dict[str, any] = {}
 
