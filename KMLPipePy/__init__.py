@@ -13,8 +13,8 @@ class KMLPipeline:
     version: Version | None = None
     pipeline: CVPipeline | None = None
     nodes: List[CVNode] | None = []
-    execNodes: Dict[str, CVNodeProcess] = []
-    vars: Dict[str, any] = []
+    execNodes: Dict[str, CVNodeProcess] = {}
+    vars: Dict[str, any] = {}
 
     def __init__(self, projectName, projectVersion, apiKey):
         self.projectName = projectName
@@ -37,10 +37,10 @@ class KMLPipeline:
         self.pipeline = self.version.pipeline
         self.nodes = self.version.pipeline.nodes
 
-        for node in [n for n in self.pipeline.nodes if n.id not in self.exec_nodes]:
+        for node in [n for n in self.pipeline.nodes if n.id not in self.execNodes]:
             new_exec_node = NodeCatalog[node.operation](node, self.vars)
             new_exec_node.initialize()
-            self.exec_nodes[node.id] = new_exec_node
+            self.execNodes[node.id] = new_exec_node
 
     def execute(self, input_values):
         if len(input_values) != len(self.pipeline.inputs):
@@ -60,14 +60,14 @@ class KMLPipeline:
             raise ValueError("No Nodes to Execute")
 
         while ready_nodes:
-            [node.execute() for node in ready_nodes]
+            [self.execNodes[node.id].execute() for node in ready_nodes]
             executed_nodes.extend(ready_nodes)
             ready_nodes = check_ready_nodes(self.nodes, executed_nodes, self.vars)
 
-        return [
-            {**output, "value": self.vars.get(output.connection.id, None)}
-            for output in self.pipeline.outputs if output.connection
-        ]
+        outputs = [output for output in self.pipeline.outputs]
+        for output in outputs:
+            output.connection.value = self.vars[output.connection.id]
+        return outputs
 
 
 def clear_vars(vars):
@@ -78,6 +78,6 @@ def clear_vars(vars):
 def check_ready_nodes(nodes, executed_nodes, vars):
     return [
         node for node in nodes
-        if node.label not in [n.label for n in executed_nodes] and
-        all(input.connection and input.connection.id in vars for input in node.inputs)
+        if node.id not in [n.id for n in executed_nodes] and
+        all(input.connection and input.connection.id and not (input.connection.value is None) in vars for input in node.inputs)
     ]
