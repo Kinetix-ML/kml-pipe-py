@@ -1,1 +1,5 @@
 requests
+numpy
+opencv-python
+tensorflow_hub
+tensorflow
