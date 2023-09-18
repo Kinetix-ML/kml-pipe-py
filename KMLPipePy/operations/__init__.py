@@ -10,6 +10,9 @@ from KMLPipePy.operations.clamp import Clamp
 from KMLPipePy.operations.getVecValue import GetVecValue
 from KMLPipePy.operations.setVecValue import SetVecValue
 from KMLPipePy.operations.smoothVecs import SmoothVecs
+from KMLPipePy.operations.conditional import Conditional
+from KMLPipePy.operations.switch import Switch
+from KMLPipePy.operations.pose2D import Pose2D
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -21,5 +24,8 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "Clamp": Clamp,
     "GetVecValues": GetVecValue,
     "SetVecValues": SetVecValue,
-    "SetVecValues": SmoothVecs
+    "SetVecValues": SmoothVecs,
+    "Conditional": Conditional,
+    "Switch": Switch,
+    "Pose2D": Pose2D
 }

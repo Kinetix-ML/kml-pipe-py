@@ -68,4 +68,9 @@ class Version:
     version: int
     pipeline: CVPipeline
 
-
+@dataclass
+class Keypoint2D:
+    x: int
+    y: int
+    score: float
+    name: str
