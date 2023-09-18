@@ -1,5 +1,5 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
-from KMLPipePy.base_structs import DataType, Keypoint2D
+from KMLPipePy.base_structs import DataType, Keypoint2D, KPFrame
 
 import tensorflow_hub as hub
 import tensorflow as tf
@@ -34,9 +34,7 @@ class Pose2D(CVNodeProcess):
         image = self.process_image(image)
         res = self.movenet(image)
 
-        out = [
-            Keypoint2D(x = p[1].numpy() * width, y = p[0].numpy() * height, score = p[2].numpy(), name = LABELS[i])
-                for i, p in enumerate(res['output_0'][0][0])
-        ]
+        out = KPFrame(keypoints=[Keypoint2D(x = p[1].numpy() * width, y = p[0].numpy() * height, score = p[2].numpy(), name = LABELS[i])
+                for i, p in enumerate(res['output_0'][0][0])])
 
         self.vars["output-0"] = out

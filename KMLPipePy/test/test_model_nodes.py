@@ -39,7 +39,7 @@ class TestModelNodes(unittest.TestCase):
 
         print(node.vars["output-0"])
 
-        for point in node.vars["output-0"]:
+        for point in node.vars["output-0"].keypoints:
             print(point)
             image = cv2.circle(image, (int(point.x), int(point.y)), radius=0, color=(255, 0, 0), thickness=10)
         cv2.imshow("Image", image)
