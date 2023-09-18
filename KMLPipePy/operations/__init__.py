@@ -13,6 +13,7 @@ from KMLPipePy.operations.smoothVecs import SmoothVecs
 from KMLPipePy.operations.conditional import Conditional
 from KMLPipePy.operations.switch import Switch
 from KMLPipePy.operations.pose2D import Pose2D
+from KMLPipePy.operations.drawKeyPoints import DrawKeyPoints
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -27,5 +28,6 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "SetVecValues": SmoothVecs,
     "Conditional": Conditional,
     "Switch": Switch,
-    "Pose2D": Pose2D
+    "Pose2D": Pose2D,
+    "DrawKeyPoints": DrawKeyPoints
 }
