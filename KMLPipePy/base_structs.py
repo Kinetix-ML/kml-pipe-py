@@ -67,15 +67,3 @@ class Version:
     projectID: str
     version: int
     pipeline: CVPipeline
-
-@dataclass
-class Keypoint2D:
-    x: int
-    y: int
-    score: float
-    name: str
-
-
-@dataclass
-class KPFrame:
-    keypoints: [Keypoint2D]

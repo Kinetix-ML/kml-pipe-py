@@ -1,7 +1,6 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
 class SetVecValue(CVNodeProcess):
-    index = 0
     def initialize(self):
         """
         Initialization code

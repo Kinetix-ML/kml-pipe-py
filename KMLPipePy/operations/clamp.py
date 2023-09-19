@@ -2,9 +2,6 @@ from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
 
 class Clamp(CVNodeProcess):
-    min = 0
-    max = 100
-
     def initialize(self):
         """
         Initialization code

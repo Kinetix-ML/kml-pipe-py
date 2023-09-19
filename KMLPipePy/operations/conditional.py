@@ -1,7 +1,6 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
 class Conditional(CVNodeProcess):
-    operator = ""
     def initialize(self):
         """
         Initialization code

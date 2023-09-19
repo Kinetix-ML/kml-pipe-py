@@ -1,8 +1,6 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
 class Constant(CVNodeProcess):
-    value = 0
-
     def initialize(self):
         """
         Initialization code
