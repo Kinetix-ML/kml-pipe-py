@@ -1,6 +1,7 @@
 import unittest
 from KMLPipePy.operations.pose2D import Pose2D
 from KMLPipePy.operations.drawKeyPoints import DrawKeyPoints
+from KMLPipePy.operations.smoothKeyPoints import SmoothKeyPoints
 from KMLPipePy.base_structs import CVNode, CVVariable, CVVariableConnection, CVParameter
 from KMLPipePy.types import Canvas
 import cv2
@@ -38,39 +39,44 @@ class TestModelNodes(unittest.TestCase):
     def test_pose2d(self):
         if not self.DO_TEST:
             return
-        image = cv2.imread("./KMLPipePy/test/test_media/testimage.jpeg")
-        image = cv2.resize(image, (400, 600))
-
-        node1 = self.__construct_node__(Pose2D, [image], 1, [])
-        node1.execute()
-
-        res = node1.vars["output-0"]
-
-        out = Canvas(None)
-        node2 = self.__construct_node__(DrawKeyPoints, [res, image, out], 0, [10])
         
-        node2.execute()
-        out.show(0)
-        out.close()
+        out = Canvas(None)
+        node1 = self.__construct_node__(Pose2D, [None], 1, [])
+        node2 = self.__construct_node__(DrawKeyPoints, [None, None, out], 0, [10])
+        node3 = self.__construct_node__(SmoothKeyPoints, [None], 1, [5])
 
+        # Set the frame rate to unlimited
         cam = cv2.VideoCapture(0)
-
-        prevTime = 0
+        cam.set(cv2.CAP_PROP_FPS, -1)
 
         while True:
             result, image = cam.read()
             node1.vars["input-0"] = image
+
+            start_time = time.time()
+
             node1.execute()
             res = node1.vars["output-0"]
+
+            node3.vars["input-0"] = res
+            node3.execute()
+            res = node3.vars["output-0"]
 
             node2.vars["input-0"] = res
             node2.vars["input-1"] = image
             node2.execute()
-            out.show(1)
+
+            end_time = time.time()
+
+            if out.show(1): # exit w/ esc
+                break
 
             curr = time.time()
-            delta = curr - prevTime
+            delta = end_time - start_time
             prevTime = curr
-            print(f"{round(1 / delta)} fps")
+            if delta == 0:
+                print(delta)
+            else:
+                print(f"{round(1 / delta)} fps")
         
         out.close()

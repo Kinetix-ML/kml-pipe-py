@@ -1,9 +1,6 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
 class SmoothVecs(CVNodeProcess):
-    index = 0
-    runningTotal = []
-
     def initialize(self):
         """
         Initialization code
@@ -12,6 +9,7 @@ class SmoothVecs(CVNodeProcess):
         self.bufferSize = self.cvnode.parameters[0].value
         self.buffer = []
         self.index = 0
+        self.runningTotal = []        
         
     def execute(self):
         vec = self.vars[self.cvnode.inputs[0].connection.id]

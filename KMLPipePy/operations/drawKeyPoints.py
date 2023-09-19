@@ -15,8 +15,8 @@ class DrawKeyPoints(CVNodeProcess):
         image : ndarray = self.vars[self.cvnode.inputs[1].connection.id]
         canvas : Canvas = self.vars[self.cvnode.inputs[2].connection.id]
 
-        # RGB
-        COLOR = (255, 0, 0)
+        # BGR
+        COLOR = (255, 255, 255)
 
         canvas.set_image(image)
         annotations = [Annotation(kp.x, kp.y, self.radius, COLOR) for kp in keypoints.keypoints]

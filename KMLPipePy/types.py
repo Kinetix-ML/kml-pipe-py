@@ -31,11 +31,11 @@ class Canvas:
             self.image = cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, dot.radius)
     
     def set_image(self, image):
-        self.image = image
+        self.image = image.copy()
 
     def show(self, time : int):
         cv2.imshow("Image", self.image)
-        cv2.waitKey(time)
+        return cv2.waitKey(time) & 0xFF == 27 # exit with esc
     
     def close(self):
         cv2.destroyAllWindows()
