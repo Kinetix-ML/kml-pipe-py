@@ -21,9 +21,9 @@ class CalcKeyPointVelocities(CVNodeProcess):
         self.last = frame
         self.lastTime = time()
 
-        if frame == DataType.NoDetections or prevFrame == None:
+        if self.catchNoDetections(frame) or prevFrame == None:
             return
-
+        
         out = []
 
         dt = time() - prevTime
@@ -31,4 +31,4 @@ class CalcKeyPointVelocities(CVNodeProcess):
             delta = calcKPDist(kp, prevFrame.keypoints[i])
             out.append(delta / dt)
 
-        self.vars["output-0"] = out
+        self.vars[self.cvnode.outputs[0].id] = out

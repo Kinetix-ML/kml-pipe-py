@@ -36,7 +36,7 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "SetVecValues": SmoothVecs,
     "Conditional": Conditional,
     "Switch": Switch,
-    "Pose2D": Pose2D,
+    "PoseDetection2D": Pose2D,
     "DrawKeyPoints": DrawKeyPoints,
     "ThreeKPAngle": ThreeKPAngle,
     "KPDist": KPDist,

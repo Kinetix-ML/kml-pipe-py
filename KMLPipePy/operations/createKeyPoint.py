@@ -15,7 +15,7 @@ class CreateKeyPoint(CVNodeProcess):
         score : float = self.vars[self.cvnode.inputs[2].connection.id]
         name : str = self.vars[self.cvnode.inputs[3].connection.id]
 
-        if x == DataType.NoDetections or y == DataType.NoDetections or score == DataType.NoDetections or name == DataType.NoDetections:
+        if self.catchNoDetections(x, y, score, name):
             return
 
-        self.vars["output-0"] = Keypoint2D(x = x, y = y, score = score, name = name)
+        self.vars[self.cvnode.outputs[0].id] = Keypoint2D(x = x, y = y, score = score, name = name)

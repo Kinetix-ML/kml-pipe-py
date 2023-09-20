@@ -27,7 +27,7 @@ class SmoothKeyPoints(CVNodeProcess):
     def execute(self):
         frame : KPFrame = self.vars[self.cvnode.inputs[0].connection.id]
 
-        if frame == DataType.NoDetections:
+        if self.catchNoDetections(frame):
             return
         
         # running tally: add new vector and remove one at end of buffer

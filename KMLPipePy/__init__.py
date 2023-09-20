@@ -79,5 +79,5 @@ def check_ready_nodes(nodes, executed_nodes, vars):
     return [
         node for node in nodes
         if node.id not in [n.id for n in executed_nodes] and
-        all(input.connection and input.connection.id and not (input.connection.value is None) in vars for input in node.inputs)
+        all([input.connection and input.connection.id in vars and vars[input.connection.id] is not None for input in node.inputs])
     ]

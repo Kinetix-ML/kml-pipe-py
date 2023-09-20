@@ -12,12 +12,7 @@ class SetVecValue(CVNodeProcess):
         vec = self.vars[self.cvnode.inputs[0].connection.id]
         value = self.vars[self.cvnode.inputs[1].connection.id]
 
-        if vec == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
-            return
-
-        if value == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(vec, value):
             return
         
         vec[self.index] = value

@@ -11,13 +11,7 @@ class GetVecValue(CVNodeProcess):
         vec = self.vars[self.cvnode.inputs[0].connection.id]
         index = self.vars[self.cvnode.inputs[1].connection.id]
 
-        if vec == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(vec, index):
             return
-
-        if index == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
-            return
-        
         
         self.vars[self.cvnode.outputs[0].id] = vec[index]

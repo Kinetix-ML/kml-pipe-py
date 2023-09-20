@@ -13,8 +13,7 @@ class GetKeyPoint(CVNodeProcess):
     def execute(self):
         kp : KPFrame = self.vars[self.cvnode.inputs[0].connection.id]
 
-        if kp == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(kp):
             return
         
         self.vars[self.cvnode.outputs[0].id] = kp.keypoints[self.index]

@@ -12,12 +12,7 @@ class Conditional(CVNodeProcess):
         input_value = self.vars[self.cvnode.inputs[0].connection.id]
         input2_value = self.vars[self.cvnode.inputs[1].connection.id]
 
-        if input_value == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
-            return
-
-        if input2_value == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(input_value, input2_value):
             return
         
         self.vars[self.cvnode.outputs[0].id] = eval(f"{input_value}{self.operator}{input2_value}")

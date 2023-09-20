@@ -14,8 +14,7 @@ class SetKeyPoint(CVNodeProcess):
         frame : KPFrame = self.vars[self.cvnode.inputs[0].connection.id]
         kp : Keypoint2D = self.vars[self.cvnode.inputs[1].connection.id]
 
-        if frame == DataType.NoDetections or kp == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(frame, kp):
             return
 
         newFrame = KPFrame(keypoints=[x if i != self.index else kp for i, x in enumerate(frame.keypoints)])

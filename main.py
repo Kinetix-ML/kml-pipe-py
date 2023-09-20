@@ -1,13 +1,19 @@
 from KMLPipePy import KMLPipeline
+from KMLPipePy.types import Canvas
+import cv2
 
-# create pipeline
-pipe = KMLPipeline("Python Test", 1, "79705c77-f57b-449d-b856-03138e8859a7")
-
-# initialize
+pipe = KMLPipeline("Python Pipe Test", 1, "59b94abb-9138-43e5-8926-cc9b55c38e7c")
 pipe.initialize()
 
-# execute
-outputs = pipe.execute([1, 2])
+out = Canvas()
+cam = cv2.VideoCapture(0)
 
-# print output
-print(outputs)
+while True:
+  res, image = cam.read()
+  out.set_image(image)
+  pipe.execute([image, out])
+
+  if out.show(1):
+    break
+
+cam.release()

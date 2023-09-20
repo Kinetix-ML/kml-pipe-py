@@ -13,8 +13,7 @@ class Clamp(CVNodeProcess):
     def execute(self):
         input_value = self.vars[self.cvnode.inputs[0].connection.id]
 
-        if input_value == DataType.NoDetections:
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections
+        if self.catchNoDetections(input_value):
             return
-
+        
         self.vars[self.cvnode.outputs[0].id] = max(self.min, min(self.max, input_value))

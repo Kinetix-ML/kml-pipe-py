@@ -23,14 +23,16 @@ class Annotation:
 
 class Canvas:
     image : ndarray = None
-    def __init__(self, image : ndarray):
+    def __init__(self, image : ndarray = None):
         self.image = image
     
     def add_annotations(self, annotations : list[Annotation]):
+        self.annotations = annotations
         for dot in annotations:
             self.image = cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, dot.radius)
     
     def set_image(self, image):
+        self.annotations = None
         self.image = image.copy()
 
     def show(self, time : int):

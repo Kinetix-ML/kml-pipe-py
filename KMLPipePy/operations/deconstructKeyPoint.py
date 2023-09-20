@@ -12,7 +12,7 @@ class DeconstructKeyPoint(CVNodeProcess):
     def execute(self):
         kp : Keypoint2D = self.vars[self.cvnode.inputs[0].connection.id]
 
-        if kp == DataType.NoDetections:
+        if self.catchNoDetections(kp):
             return
 
         self.vars[self.cvnode.outputs[0].id] = kp.x;

@@ -28,6 +28,10 @@ class Pose2D(CVNodeProcess):
 
     def execute(self):
         image = self.vars[self.cvnode.inputs[0].connection.id]
+
+        if self.catchNoDetections(image):
+            return
+
         width = image.shape[1]
         height = image.shape[0]
 
@@ -37,4 +41,4 @@ class Pose2D(CVNodeProcess):
         out = KPFrame(keypoints=[Keypoint2D(x = int(p[1].numpy() * width), y = int(p[0].numpy() * height), score = p[2].numpy(), name = LABELS[i])
                 for i, p in enumerate(res['output_0'][0][0])])
 
-        self.vars["output-0"] = out
+        self.vars[self.cvnode.outputs[0].id] = out

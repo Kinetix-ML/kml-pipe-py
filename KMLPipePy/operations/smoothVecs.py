@@ -14,7 +14,7 @@ class SmoothVecs(CVNodeProcess):
     def execute(self):
         vec = self.vars[self.cvnode.inputs[0].connection.id]
 
-        if vec == DataType.NoDetections:
+        if self.catchNoDetections(vec):
             return
         
         # running tally: add new vector and remove one at end of buffer

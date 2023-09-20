@@ -14,8 +14,6 @@ class KPDist(CVNodeProcess):
         kp1 : Keypoint2D = self.vars[self.cvnode.inputs[0].connection.id]
         kp2 : Keypoint2D = self.vars[self.cvnode.inputs[1].connection.id]
 
-        if (kp1 == DataType.NoDetections or
-            kp2 == DataType.NoDetections):
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections;
+        if self.catchNoDetections(kp1, kp2):
             return
         self.vars[self.cvnode.outputs[0].id] = calcKPDist(kp1, kp2)

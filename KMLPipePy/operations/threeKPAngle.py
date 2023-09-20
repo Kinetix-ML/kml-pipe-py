@@ -22,9 +22,7 @@ class ThreeKPAngle(CVNodeProcess):
         kp2 : Keypoint2D = self.vars[self.cvnode.inputs[1].connection.id]
         kp3 : Keypoint2D = self.vars[self.cvnode.inputs[2].connection.id]
 
-        if (kp1 == DataType.NoDetections or
-            kp2 == DataType.NoDetections or
-            kp3 == DataType.NoDetections):
-            self.vars[self.cvnode.outputs[0].id] = DataType.NoDetections;
+        if self.catchNoDetections(kp1, kp2, kp3):
             return
+        
         self.vars[self.cvnode.outputs[0].id] = ThreeKPAngle.calc3PtAngle(kp1, kp2, kp3)
