@@ -3,6 +3,10 @@ import math
 from KMLPipePy.operations.threeKPAngle import ThreeKPAngle 
 from KMLPipePy.operations.kpDist import KPDist
 from KMLPipePy.operations.smoothKeyPoints import SmoothKeyPoints
+from KMLPipePy.operations.createKeyPoint import CreateKeyPoint
+from KMLPipePy.operations.deconstructKeyPoint import DeconstructKeyPoint
+from KMLPipePy.operations.getKeyPoint import GetKeyPoint
+from KMLPipePy.operations.setKeyPoint import SetKeyPoint
 from KMLPipePy.base_structs import CVNode, CVVariable, CVVariableConnection, CVParameter
 from KMLPipePy.types import Keypoint2D, KPFrame
 
@@ -71,3 +75,35 @@ class TestMathNodes(unittest.TestCase):
         node.execute()
         node.execute()
         node.execute()
+
+    def test_create_keypoint(self):
+        node = self.__construct_node__(CreateKeyPoint, [1, 2, 0.5, "hi"], 1, [])
+        res : Keypoint2D = node.vars["output-0"]
+
+        self.assertEqual(res.x, 1)
+        self.assertEqual(res.y, 2)
+        self.assertEqual(res.score, 0.5)
+        self.assertEqual(res.name, "hi")
+
+    def test_deconstruct_keypoint(self):
+        node = self.__construct_node__(DeconstructKeyPoint, [Keypoint2D(1, 2, 0.5, "hi")], 4, [])
+
+        self.assertEqual(node.vars["output-0"], 1)
+        self.assertEqual(node.vars["output-1"], 2)
+        self.assertEqual(node.vars["output-2"], 0.5)
+        self.assertEqual(node.vars["output-3"], "hi")
+    
+    def test_get_kp(self):
+        kp1 = Keypoint2D(1, 2, 0.5, "hi")
+        kp2 = Keypoint2D(2, 3, 0.7, "hi there")
+        node = self.__construct_node__(GetKeyPoint, [KPFrame(keypoints=[kp1, kp2])], 1, [1])
+
+        self.assertEqual(node.vars["output-0"], kp2)
+
+    def test_set_kp(self):
+        kp1 = Keypoint2D(1, 2, 0.5, "hi")
+        kp2 = Keypoint2D(2, 3, 0.7, "hi there")
+        kp3 = Keypoint2D(3, 4, 0.9, "howdy")
+        node = self.__construct_node__(SetKeyPoint, [KPFrame(keypoints=[kp1, kp2]), kp3], 1, [1])
+
+        self.assertEqual(node.vars["output-0"], KPFrame([kp1, kp3]))

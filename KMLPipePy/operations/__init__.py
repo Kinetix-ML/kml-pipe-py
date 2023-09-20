@@ -14,6 +14,14 @@ from KMLPipePy.operations.conditional import Conditional
 from KMLPipePy.operations.switch import Switch
 from KMLPipePy.operations.pose2D import Pose2D
 from KMLPipePy.operations.drawKeyPoints import DrawKeyPoints
+from KMLPipePy.operations.threeKPAngle import ThreeKPAngle 
+from KMLPipePy.operations.kpDist import KPDist
+from KMLPipePy.operations.smoothKeyPoints import SmoothKeyPoints
+from KMLPipePy.operations.calcKeyPointVelocities import CalcKeyPointVelocities
+from KMLPipePy.operations.createKeyPoint import CreateKeyPoint
+from KMLPipePy.operations.deconstructKeyPoint import DeconstructKeyPoint
+from KMLPipePy.operations.getKeyPoint import GetKeyPoint
+from KMLPipePy.operations.setKeyPoint import SetKeyPoint
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -29,5 +37,13 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "Conditional": Conditional,
     "Switch": Switch,
     "Pose2D": Pose2D,
-    "DrawKeyPoints": DrawKeyPoints
+    "DrawKeyPoints": DrawKeyPoints,
+    "ThreeKPAngle": ThreeKPAngle,
+    "KPDist": KPDist,
+    "SmoothKeyPoints": SmoothKeyPoints,
+    "CalcKeyPointVelocities": CalcKeyPointVelocities,
+    "CreateKeyPoint": CreateKeyPoint,
+    "DeconstructKeyPoint": DeconstructKeyPoint,
+    "GetKeyPoint": GetKeyPoint,
+    "SetKeyPoint": SetKeyPoint
 }
