@@ -53,35 +53,39 @@ class TestModelNodes(unittest.TestCase):
 
         while True:
             result, image = cam.read()
-            node1.vars["input-0"] = image
+            if image is not None and image.any():
+                node1.vars["input-0"] = image
 
-            start_time = time.time()
+                start_time = time.time()
 
-            node1.execute()
-            res = node1.vars["output-0"]
+                node1.execute()
+                res = node1.vars["output-0"]
 
-            node3.vars["input-0"] = res
-            node3.execute()
-            res = node3.vars["output-0"]
+                node3.vars["input-0"] = res
+                node3.execute()
+                res = node3.vars["output-0"]
 
-            node4.vars["input-0"] = res
-            node4.execute()
+                node4.vars["input-0"] = res
+                node4.execute()
 
-            node2.vars["input-0"] = res
-            node2.vars["input-1"] = image
-            node2.execute()
+                node2.vars["input-0"] = res
+                node2.vars["input-1"] = image
+                node2.execute()
 
-            end_time = time.time()
+                end_time = time.time()
 
-            if out.show(1): # exit w/ esc
-                break
+                if out.show(1): # exit w/ esc
+                    break
 
-            curr = time.time()
-            delta = end_time - start_time
-            prevTime = curr
-            if delta == 0:
-                print(delta)
+                curr = time.time()
+                delta = end_time - start_time
+                prevTime = curr
+                if delta == 0:
+                    print(delta)
+                else:
+                    print(f"{round(1 / delta)} fps -- Nose speed: {node4.vars['output-0'][0] if node4.vars['output-0'] else 'TBD'}")
+                
             else:
-                print(f"{round(1 / delta)} fps -- Nose speed: {node4.vars['output-0'][0] if node4.vars['output-0'] else 'TBD'}")
+                print("invalid frame")
         
         out.close()
