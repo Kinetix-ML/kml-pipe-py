@@ -29,6 +29,8 @@ class RoboflowDetect(CVNodeProcess):
             return
 
         out = self.model.predict(image).json()
-        out = [BBox(pred["x"], pred["y"], pred["width"], pred["height"], (255, 255, 255)) for pred in out["predictions"]]
+        out = [BBox(pred["x"], pred["y"], pred["width"], pred["height"],
+                    (0, 0, 0), pred["class"], pred["confidence"])
+                for pred in out["predictions"]]
 
         self.vars[self.cvnode.outputs[0].id] = out

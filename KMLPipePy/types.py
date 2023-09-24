@@ -29,8 +29,14 @@ class BBox:
     width: int
     height: int
     color: (int, int, int)
+    label: str
+    confidence: float
 
 class Canvas:
+    FONT = cv2.FONT_HERSHEY_PLAIN
+    FONT_SIZE = 1
+    THICKNESS = 2
+
     image : ndarray = None
     def __init__(self, image : ndarray = None):
         self.image = image
@@ -45,7 +51,11 @@ class Canvas:
         for bbox in bboxes:
             cv2.rectangle(img=self.image,
                 pt1=(int(bbox.x - (bbox.width // 2)), int(bbox.y - (bbox.height // 2))),
-                pt2=(int(bbox.x + (bbox.width // 2)), int(bbox.y + (bbox.height // 2))), color=bbox.color, thickness=3)
+                pt2=(int(bbox.x + (bbox.width // 2)), int(bbox.y + (bbox.height // 2))),
+                color=bbox.color, thickness=self.THICKNESS)
+            cv2.putText(self.image, bbox.label,
+                        (int(bbox.x - (bbox.width // 2)), int(bbox.y - (bbox.height // 2) - 2 * self.THICKNESS)),
+                        self.FONT, self.FONT_SIZE, bbox.color, 1)
     
     def set_image(self, image):
         self.annotations = None
