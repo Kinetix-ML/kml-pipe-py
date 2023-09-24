@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from numpy import ndarray
 import cv2
+from enum import Enum
 
 @dataclass
 class Keypoint2D:
@@ -21,6 +22,14 @@ class Annotation:
     radius: int
     color: (int, int, int)
 
+@dataclass
+class BBox:
+    x: int
+    y: int
+    width: int
+    height: int
+    color: (int, int, int)
+
 class Canvas:
     image : ndarray = None
     def __init__(self, image : ndarray = None):
@@ -29,7 +38,14 @@ class Canvas:
     def add_annotations(self, annotations : list[Annotation]):
         self.annotations = annotations
         for dot in annotations:
-            self.image = cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, dot.radius)
+            cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, dot.radius)
+
+    def add_bboxes(self, bboxes: list[BBox]):
+        self.bboxes = bboxes
+        for bbox in bboxes:
+            cv2.rectangle(img=self.image,
+                pt1=(int(bbox.x - (bbox.width // 2)), int(bbox.y - (bbox.height // 2))),
+                pt2=(int(bbox.x + (bbox.width // 2)), int(bbox.y + (bbox.height // 2))), color=bbox.color, thickness=3)
     
     def set_image(self, image):
         self.annotations = None

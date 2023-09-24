@@ -22,6 +22,8 @@ from KMLPipePy.operations.createKeyPoint import CreateKeyPoint
 from KMLPipePy.operations.deconstructKeyPoint import DeconstructKeyPoint
 from KMLPipePy.operations.getKeyPoint import GetKeyPoint
 from KMLPipePy.operations.setKeyPoint import SetKeyPoint
+from KMLPipePy.operations.roboflowDetect import RoboflowDetect
+from KMLPipePy.operations.drawBBoxFrame import DrawBBoxFrame
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -45,5 +47,7 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "CreateKeyPoint": CreateKeyPoint,
     "DeconstructKeyPoint": DeconstructKeyPoint,
     "GetKeyPoint": GetKeyPoint,
-    "SetKeyPoint": SetKeyPoint
+    "SetKeyPoint": SetKeyPoint,
+    "RoboflowDetect": RoboflowDetect,
+    "DrawBBoxFrame": DrawBBoxFrame
 }
