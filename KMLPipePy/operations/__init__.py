@@ -9,6 +9,9 @@ from KMLPipePy.operations.round import Round
 from KMLPipePy.operations.clamp import Clamp
 from KMLPipePy.operations.getVecValue import GetVecValue
 from KMLPipePy.operations.setVecValue import SetVecValue
+from KMLPipePy.operations.compareKPFrames import CompareKPFrames
+from KMLPipePy.operations.normKeyPoints import NormKeyPoints
+from KMLPipePy.operations.normKeyPointsSize import NormKeyPointsSize
 from KMLPipePy.operations.smoothVecs import SmoothVecs
 from KMLPipePy.operations.conditional import Conditional
 from KMLPipePy.operations.switch import Switch
@@ -58,6 +61,9 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "DeconstructKeyPoint": DeconstructKeyPoint,
     "GetKeyPoint": GetKeyPoint,
     "SetKeyPoint": SetKeyPoint,
+    "CompareKPFrames": CompareKPFrames,
+    "NormKeyPoints": NormKeyPoints,
+    "NormKeyPointsSize": NormKeyPointsSize,
     "RoboflowDetect": RoboflowDetect,
     "DrawBBoxFrame": DrawBBoxFrame,
     "CropBBoxes": CropBBoxes,
