@@ -29,6 +29,8 @@ from KMLPipePy.operations.createKeyPoint import CreateKeyPoint
 from KMLPipePy.operations.deconstructKeyPoint import DeconstructKeyPoint
 from KMLPipePy.operations.getKeyPoint import GetKeyPoint
 from KMLPipePy.operations.setKeyPoint import SetKeyPoint
+from KMLPipePy.operations.createCrop import CreateCrop
+from KMLPipePy.operations.crop import Crop
 from KMLPipePy.operations.roboflowDetect import RoboflowDetect
 from KMLPipePy.operations.drawBBoxFrame import DrawBBoxFrame
 from KMLPipePy.operations.cropBBoxes import CropBBoxes
@@ -64,6 +66,8 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "CompareKPFrames": CompareKPFrames,
     "NormKeyPoints": NormKeyPoints,
     "NormKeyPointsSize": NormKeyPointsSize,
+    "CreateCrop": CreateCrop,
+    "Crop": Crop,
     "RoboflowDetect": RoboflowDetect,
     "DrawBBoxFrame": DrawBBoxFrame,
     "CropBBoxes": CropBBoxes,
