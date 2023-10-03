@@ -7,6 +7,9 @@ from KMLPipePy.operations.createKeyPoint import CreateKeyPoint
 from KMLPipePy.operations.deconstructKeyPoint import DeconstructKeyPoint
 from KMLPipePy.operations.getKeyPoint import GetKeyPoint
 from KMLPipePy.operations.setKeyPoint import SetKeyPoint
+from KMLPipePy.operations.compareKPFrames import CompareKPFrames
+from KMLPipePy.operations.normKeyPoints import NormKeyPoints
+from KMLPipePy.operations.normKeyPointsSize import NormKeyPointsSize
 from KMLPipePy.base_structs import CVNode, CVVariable, CVVariableConnection, CVParameter
 from KMLPipePy.types import Keypoint2D, KPFrame
 
@@ -107,3 +110,49 @@ class TestMathNodes(unittest.TestCase):
         node = self.__construct_node__(SetKeyPoint, [KPFrame(keypoints=[kp1, kp2]), kp3], 1, [1])
 
         self.assertEqual(node.vars["output-0"], KPFrame([kp1, kp3]))
+    
+    def test_compare_kpframes(self):
+        # Create two KPFrames
+        kp1 = KPFrame(keypoints=[Keypoint2D(1, 2, 0.5, "hi"), Keypoint2D(2, 3, 0.7, "hi there"),
+                                 Keypoint2D(1, 2, 0.5, "hi"), Keypoint2D(1, 1, 0.7, "hi there")])
+        kp2 = KPFrame(keypoints=[Keypoint2D(2, 3, 0.7, "hi there"), Keypoint2D(3, 4, 0.9, "howdy"),
+                                 Keypoint2D(1, 2, 0.7, "hi there"), Keypoint2D(-1, 1, 0.9, "howdy")])
+
+        # Create a CompareKPFrames node and pass in the two KPFrames
+        node = self.__construct_node__(CompareKPFrames, [kp1, kp2], 1, [])
+
+        out = node.vars["output-0"]
+        self.assertAlmostEqual(out[0], 0.9922, 3)
+        self.assertAlmostEqual(out[1], 0.99846, 3)
+        self.assertAlmostEqual(out[2], 1, 3)
+        self.assertAlmostEqual(out[3], 0, 3)
+
+    def test_norm_kpframe(self):
+        frame = KPFrame(keypoints=[Keypoint2D(2, 0, 0.7, "hi there"), Keypoint2D(3, 4, 0.9, "howdy"),
+                                 Keypoint2D(0, 0, 0.7, "hi there")])
+
+        # Create a CompareKPFrames node and pass in the two KPFrames
+        node = self.__construct_node__(NormKeyPoints, [frame], 1, [])
+
+        out = node.vars["output-0"].keypoints
+        self.assertEquals(out[0].x, 1)
+        self.assertEquals(out[0].y, 0)
+        self.assertEquals(out[1].x, 0.6)
+        self.assertEquals(out[1].y, 0.8)
+        self.assertEquals(out[2].x, 0)
+        self.assertEquals(out[2].y, 0)
+
+    def test_norm_kpframe_size(self):
+        frame = KPFrame(keypoints=[Keypoint2D(0, 0, 0.7, "hi there"), Keypoint2D(4, 3, 0.9, "howdy"),
+                                 Keypoint2D(2, 4, 0.7, "hi there")])
+
+        # Create a CompareKPFrames node and pass in the two KPFrames
+        node = self.__construct_node__(NormKeyPointsSize, [frame], 1, [])
+
+        out = node.vars["output-0"].keypoints
+        self.assertEquals(out[0].x, 0)
+        self.assertEquals(out[0].y, 0)
+        self.assertEquals(out[1].x, 1)
+        self.assertEquals(out[1].y, 0.75)
+        self.assertEquals(out[2].x, 0.5)
+        self.assertEquals(out[2].y, 1)
