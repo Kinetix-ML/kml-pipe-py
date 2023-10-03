@@ -23,6 +23,12 @@ class Annotation:
     color: (int, int, int)
 
 @dataclass
+class Label:
+    x: int
+    y: int
+    name: str
+
+@dataclass
 class BBox:
     x: int
     y: int
@@ -36,6 +42,7 @@ class Canvas:
     FONT = cv2.FONT_HERSHEY_PLAIN
     FONT_SIZE = 1
     THICKNESS = 2
+    LABEL_WIDTH = 50
 
     image : ndarray = None
     def __init__(self, image : ndarray = None):
@@ -44,7 +51,7 @@ class Canvas:
     def add_annotations(self, annotations : list[Annotation]):
         self.annotations = annotations
         for dot in annotations:
-            cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, dot.radius)
+            cv2.circle(self.image, (dot.x, dot.y), 0, dot.color, int(dot.radius * 50))
 
     def add_bboxes(self, bboxes: list[BBox]):
         self.bboxes = bboxes
@@ -55,10 +62,20 @@ class Canvas:
                 color=bbox.color, thickness=self.THICKNESS)
             cv2.putText(self.image, bbox.label,
                         (int(bbox.x - (bbox.width // 2)), int(bbox.y - (bbox.height // 2) - 2 * self.THICKNESS)),
-                        self.FONT, self.FONT_SIZE, bbox.color, 1)
-    
+                        self.FONT, self.FONT_SIZE, bbox.color, 1, lineType = cv2.LINE_AA)
+            
+    def add_labels(self, labels: list[Label]):
+        self.labels = labels
+        for label in labels:
+            cv2.circle(img=self.image, center=(label.x, label.y), radius=0, color=(255, 255, 255), thickness=self.LABEL_WIDTH)
+            text_size = cv2.getTextSize(label.name, self.FONT, self.FONT_SIZE, self.THICKNESS)[0]
+            text_origin = (label.x - text_size[0] // 2, label.y + text_size[1] // 2)
+            cv2.putText(self.image, label.name, text_origin, self.FONT, self.FONT_SIZE, (0, 0, 0), 1, lineType = cv2.LINE_AA)
+
     def set_image(self, image):
         self.annotations = None
+        self.bboxes = None
+        self.labels = None
         self.image = image.copy()
 
     def show(self, time : int):

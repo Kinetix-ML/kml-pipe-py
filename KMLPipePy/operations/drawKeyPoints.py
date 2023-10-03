@@ -22,6 +22,5 @@ class DrawKeyPoints(CVNodeProcess):
         # BGR
         COLOR = (255, 255, 255)
 
-        canvas.set_image(image)
         annotations = [Annotation(kp.x, kp.y, self.radius, COLOR) for kp in keypoints.keypoints]
         canvas.add_annotations(annotations)

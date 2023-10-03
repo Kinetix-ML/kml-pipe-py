@@ -15,6 +15,10 @@ from KMLPipePy.operations.switch import Switch
 from KMLPipePy.operations.pose2D import Pose2D
 from KMLPipePy.operations.drawKeyPoints import DrawKeyPoints
 from KMLPipePy.operations.threeKPAngle import ThreeKPAngle 
+from KMLPipePy.operations.createLabel import CreateLabel
+from KMLPipePy.operations.drawLabel import DrawLabel
+from KMLPipePy.operations.drawLabels import DrawLabels
+from KMLPipePy.operations.calcJointAngles import CalcJointAngles
 from KMLPipePy.operations.kpDist import KPDist
 from KMLPipePy.operations.smoothKeyPoints import SmoothKeyPoints
 from KMLPipePy.operations.calcKeyPointVelocities import CalcKeyPointVelocities
@@ -43,6 +47,10 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "PoseDetection2D": Pose2D,
     "DrawKeyPoints": DrawKeyPoints,
     "ThreeKPAngle": ThreeKPAngle,
+    "CreateLabel": CreateLabel,
+    "DrawLabel": DrawLabel,
+    "DrawLabels": DrawLabels,
+    "CalcJointAngles": CalcJointAngles,
     "KPDist": KPDist,
     "SmoothKeyPoints": SmoothKeyPoints,
     "CalcKeyPointVelocities": CalcKeyPointVelocities,
