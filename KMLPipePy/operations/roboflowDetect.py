@@ -14,9 +14,9 @@ class RoboflowDetect(CVNodeProcess):
         """
         model_name = self.cvnode.parameters[0].value
         version = self.cvnode.parameters[1].value
-        api_key = self.cvnode.parameters[2].value
+        api_key = self.cvnode.parameters[5].value
         self.confidence_threshhold = self.cvnode.parameters[3].value
-        self.overlap_threshhold = self.cvnode.parameters[3].value
+        self.overlap_threshhold = self.cvnode.parameters[4].value
 
         rf = Roboflow(api_key=api_key)
         project = rf.workspace().project(model_name)

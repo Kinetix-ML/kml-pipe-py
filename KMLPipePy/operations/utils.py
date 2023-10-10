@@ -1,7 +1,9 @@
+import cv2
 import math
 from KMLPipePy.types import Keypoint2D
 from KMLPipePy.base_structs import DataType
 from typing import List
+import base64
 
 def calc3PtAngle(p1 : Keypoint2D, p2: Keypoint2D, p3: Keypoint2D):
     # https://stackoverflow.com/a/31334882
@@ -30,3 +32,9 @@ def calcCosineSimilarity(v1: List[float], v2: List[float]):
         return 0
 
     return sumxy / math.sqrt(sumxx * sumyy)
+
+# converts cv2 image to base64 string
+def imageToBase64(image):
+    retval, buffer = cv2.imencode('.jpg', image)
+    jpg_as_text = base64.b64encode(buffer)
+    return jpg_as_text.decode('utf-8')

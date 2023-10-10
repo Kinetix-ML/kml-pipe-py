@@ -38,6 +38,10 @@ class BBox:
     label: str
     confidence: float
 
+@dataclass
+class Classification:
+    predictions: list[dict[str, float]]
+
 class Canvas:
     FONT = cv2.FONT_HERSHEY_PLAIN
     FONT_SIZE = 1

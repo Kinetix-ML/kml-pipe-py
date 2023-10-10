@@ -35,6 +35,8 @@ from KMLPipePy.operations.roboflowDetect import RoboflowDetect
 from KMLPipePy.operations.drawBBoxFrame import DrawBBoxFrame
 from KMLPipePy.operations.cropBBoxes import CropBBoxes
 from KMLPipePy.operations.roboflowClassificationAPI import RoboflowClassificationAPI
+from KMLPipePy.operations.roboflowEmbedImages import RoboflowEmbedImages
+from KMLPipePy.operations.compareEmbeddings import CompareEmbeddings
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -71,5 +73,7 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "RoboflowDetect": RoboflowDetect,
     "DrawBBoxFrame": DrawBBoxFrame,
     "CropBBoxes": CropBBoxes,
-    "RoboflowClassificationAPI": RoboflowClassificationAPI
+    "RoboflowClassificationAPI": RoboflowClassificationAPI,
+    "RoboflowEmbedImages": RoboflowEmbedImages,
+    "CompareEmbeddings": CompareEmbeddings,
 }
