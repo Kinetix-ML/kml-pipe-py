@@ -1,10 +1,10 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.base_structs import DataType
-from KMLPipePy.types import KPFrame, Keypoint2D, Vector2D
+from KMLPipePy.types import KPFrame, Keypoint2D
 from .utils import calcCosineSimilarity
 from typing import List
 
-class CompareKPFrames(CVNodeProcess):
+class CompareEmbeddings(CVNodeProcess):
     def initialize(self):
         """
         Initialization code
