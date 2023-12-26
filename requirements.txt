@@ -187,5 +187,7 @@ wheel==0.41.2
 wrapt==1.14.1
     # via tensorflow-macos
 
+rtmlib==0.0.6
+
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
