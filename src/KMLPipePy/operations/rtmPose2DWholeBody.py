@@ -2,7 +2,7 @@ from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.types import Keypoint2D, KPFrame
 from KMLPipePy.base_structs import DataType
 
-from rtmlib.tools import Wholebody
+from .utils import importModule
 import torch
 import cv2
 import numpy as np
@@ -24,7 +24,8 @@ class RTMPose2DWholeBody(CVNodeProcess):
 
         openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 
-        self.model = Wholebody(to_openpose=openpose_skeleton,
+        # imports are done here to prevent unnecessary imports of external modules
+        self.model = importModule('rtmlib.tools').Wholebody(to_openpose=openpose_skeleton,
                             mode='balanced',  # 'performance', 'lightweight', 'balanced'. Default: 'balanced'
                             backend=backend, device=device)
 

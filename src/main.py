@@ -4,12 +4,12 @@ import cv2
 import time
 import time
 
-pipe = KMLPipeline("Roboflow Test", 2, "261e97fd-18b1-4a3c-8cc1-b94a421c11bf")
+pipe = KMLPipeline("Roboflow Test", 1, "59b94abb-9138-43e5-8926-cc9b55c38e7c")
 pipe.initialize()
 print("Done Initializing")
 
 out = Canvas()
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 print("Starting Capture")
 
 while True:

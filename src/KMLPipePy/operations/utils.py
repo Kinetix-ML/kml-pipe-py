@@ -4,6 +4,7 @@ from KMLPipePy.types import Keypoint2D
 from KMLPipePy.base_structs import DataType
 from typing import List
 import base64
+import importlib
 
 def calc3PtAngle(p1 : Keypoint2D, p2: Keypoint2D, p3: Keypoint2D):
     # https://stackoverflow.com/a/31334882
@@ -38,3 +39,20 @@ def imageToBase64(image):
     retval, buffer = cv2.imencode('.jpg', image)
     jpg_as_text = base64.b64encode(buffer)
     return jpg_as_text.decode('utf-8')
+
+imported_dict = {}
+
+# prevent unnecessary imports of intensive modules
+def importModule(module_name):
+    if module_name in imported_dict:
+        return imported_dict[module_name]
+    else:
+        try:
+            imported_dict[module_name] = importlib.import_module(module_name)
+        except ImportError as e: # custom error handling if neccesary
+            parent = module_name.split(".")[0]
+            if parent == "rtmlib":
+                raise ImportError("rtmlib is not installed. Please see installation instructions at https://github.com/Tau-J/rtmlib") from e
+            raise e
+            
+    return imported_dict[module_name]

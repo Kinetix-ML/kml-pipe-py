@@ -1,8 +1,7 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.types import Keypoint2D, KPFrame
+from .utils import importModule
 
-import tensorflow_hub as hub
-import tensorflow as tf
 import cv2
 
 LABELS = ["nose"," left eye"," right eye"," left ear"," right ear"," left shoulder"," right shoulder"," left elbow"," right elbow"," left wrist"," right wrist"," left hip"," right hip"," left knee"," right knee"," left ankle"," right ankle"]
@@ -14,6 +13,8 @@ class Pose2D(CVNodeProcess):
         Initialization code
         :return:
         """
+        self.tf = importModule('tensorflow') # import tensorflow as tf
+        hub = importModule('tensorflow_hub') # import tensorflow_hub as hub
         model = hub.load("https://tfhub.dev/google/movenet/singlepose/lightning/4")
         self.movenet = model.signatures["serving_default"]
 
@@ -21,9 +22,9 @@ class Pose2D(CVNodeProcess):
         ### convert cv2 image to correct size tensor
         image = cv2.resize(image, (192, 192))
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        image = tf.convert_to_tensor(image)
-        image = tf.expand_dims(image, axis=0)
-        image = tf.cast(image, tf.int32)
+        image = self.tf.convert_to_tensor(image)
+        image = self.tf.expand_dims(image, axis=0)
+        image = self.tf.cast(image, self.tf.int32)
         return image
 
     def execute(self):
