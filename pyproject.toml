@@ -24,6 +24,7 @@ dependencies = [
     "tensorflow_hub",
     "tensorflow",
     "roboflow",
+    torch
 ]
 requires-python = ">=3.9"
 
