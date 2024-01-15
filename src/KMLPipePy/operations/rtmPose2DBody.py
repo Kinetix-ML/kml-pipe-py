@@ -24,7 +24,7 @@ class RTMPose2DBody(CVNodeProcess):
 
         openpose_skeleton = False  # True for openpose-style, False for mmpose-style
 
-        self.model = Body(pose="rtmo",to_openpose=openpose_skeleton,
+        self.model = Body(to_openpose=openpose_skeleton,
                             mode='balanced',  # 'performance', 'lightweight', 'balanced'. Default: 'balanced'
                             backend=backend, device=device)
 

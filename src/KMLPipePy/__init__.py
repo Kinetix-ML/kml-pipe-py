@@ -4,6 +4,8 @@ from KMLPipePy.operations import NodeCatalog
 from typing import List, Dict, Union
 from KMLPipePy.api import get_project_version
 
+__version__ = "1.1.0"
+
 
 class KMLPipeline:
     projectName: str
