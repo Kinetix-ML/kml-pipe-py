@@ -166,12 +166,6 @@ tensorflow-estimator==2.14.0
     # via tensorflow-macos
 tensorflow-hub==0.15.0
     # via KMLPipePy (pyproject.toml)
-tensorflow-io-gcs-filesystem==0.34.0
-    # via tensorflow-macos
-tensorflow-macos==2.14.0
-    # via tensorflow
-termcolor==2.3.0
-    # via tensorflow-macos
 tqdm==4.66.1
     # via roboflow
 typing-extensions==4.8.0
@@ -186,6 +180,8 @@ wheel==0.41.2
     # via astunparse
 wrapt==1.14.1
     # via tensorflow-macos
+torch==2.1.2
+    # via KMLPipePy (pyproject.toml)
 
 rtmlib==0.0.6
 

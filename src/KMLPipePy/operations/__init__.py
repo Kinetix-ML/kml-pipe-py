@@ -39,6 +39,7 @@ from KMLPipePy.operations.roboflowEmbedImages import RoboflowEmbedImages
 from KMLPipePy.operations.compareEmbeddings import CompareEmbeddings
 from KMLPipePy.operations.rtmPose2DBody import RTMPose2DBody
 from KMLPipePy.operations.rtmPose2DWholeBody import RTMPose2DWholeBody
+from KMLPipePy.operations.faceMeshDetection import FaceMeshDetection
 
 NodeCatalog: Dict[str,CVNodeProcess] = {
     "AddInputs": AddInputs,
@@ -80,4 +81,5 @@ NodeCatalog: Dict[str,CVNodeProcess] = {
     "CompareEmbeddings": CompareEmbeddings,
     "RTMPose2DBody": RTMPose2DBody,
     "RTMPose2DWholeBody": RTMPose2DWholeBody,
+    "FaceMeshDetection": FaceMeshDetection
 }
