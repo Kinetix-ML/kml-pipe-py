@@ -4,6 +4,7 @@ from KMLPipePy.base_structs import DataType
 
 from .utils import importModule
 import torch
+import onnxruntime as ort
 import cv2
 import numpy as np
 
@@ -16,7 +17,12 @@ class RTMPose2DBody(CVNodeProcess):
         Initialization code
         :return:
         """
+
+        providers = ort.get_available_providers()
+
         device = 'cpu'  # cpu, cuda
+        if "CoreMLExecutionProvider" in providers:
+            device = "coreml"
         if torch.cuda.is_available():
             device = 'cuda'
 
@@ -26,7 +32,7 @@ class RTMPose2DBody(CVNodeProcess):
 
         # imports are done here to prevent unnecessary imports of external modules
         self.model = importModule('rtmlib.tools').Body(pose="rtmo",to_openpose=openpose_skeleton,
-                            mode='balanced',  # 'performance', 'lightweight', 'balanced'. Default: 'balanced'
+                            mode='performance',  # 'performance', 'lightweight', 'balanced'. Default: 'balanced'
                             backend=backend, device=device)
 
     def execute(self):
