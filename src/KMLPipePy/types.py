@@ -43,7 +43,7 @@ class Classification:
     predictions: list[dict[str, float]]
 
 class Canvas:
-    FONT = cv2.FONT_HERSHEY_PLAIN
+    FONT = 1#cv2.FONT_HERSHEY_PLAIN
     FONT_SIZE = 1
     THICKNESS = 2
     LABEL_WIDTH = 50
