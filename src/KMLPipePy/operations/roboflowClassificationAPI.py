@@ -3,8 +3,6 @@ from KMLPipePy.types import BBox, Classification
 from KMLPipePy.operations.utils import imageToBase64
 import requests
 
-from roboflow import Roboflow
-
 class RoboflowClassificationAPI(CVNodeProcess):
     api_key = ""
     model_name = ""

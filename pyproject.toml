@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "KMLPipePy"
-version = "1.2.1"
+version = "1.2.2"
 description = "Official Python library for the Kinetix ML API"
 readme = "README.md"
 authors = [{ name = "Maxwell Stone", email = "maxwell@kinetixml.com" }, { name = "Sammy Taubman", email = "sammy@kinetixml.com" }]

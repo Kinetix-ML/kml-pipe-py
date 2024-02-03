@@ -1,7 +1,7 @@
 from KMLPipePy.CVNodeProcess import CVNodeProcess
 from KMLPipePy.types import BBox
+from .utils import importModule
 
-from roboflow import Roboflow
 import cv2
 import base64
 
@@ -18,7 +18,7 @@ class RoboflowDetect(CVNodeProcess):
         self.confidence_threshhold = self.cvnode.parameters[3].value
         self.overlap_threshhold = self.cvnode.parameters[4].value
 
-        rf = Roboflow(api_key=api_key)
+        rf = importModule('roboflow').Roboflow(api_key=api_key)
         project = rf.workspace().project(model_name)
         self.model = project.version(version).model
 
